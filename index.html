@@ -1,0 +1,244 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Audio Waveform Player with Playlist</title>
+
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"><!-- icons -->
+		<link rel="stylesheet" type="text/css" href="css/awp_default.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mCustomScrollbar.css" media="all" /><!-- playlist scroll -->
+        
+        <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/wavesurfer.js"></script>
+        <script type="text/javascript" src="js/jsmediatags.min.js"></script><!-- id3 tags -->
+        <script type="text/javascript" src="js/jquery.mCustomScrollbar.concat.min.js"></script><!-- playlist scroll -->
+        <script type="text/javascript" src="js/new_cb.js"></script>
+        <script type="text/javascript" src="js/new.js?54"></script>			
+        <script type="text/javascript">
+
+            var awp_player;  
+            jQuery(document).ready(function($){
+
+                var settings = {
+                    instanceName:"default",
+                    sourcePath:"",
+                    playlistList:"#awp-playlist-list",
+                    activePlaylist:"#playlist-audio1",
+                    activeItem:0,
+                    volume:0.5,
+                    autoPlay:true,
+                    drawWaveWithoutLoad:false,
+                    randomPlay:false,
+                    loopingOn:true,
+                    autoAdvanceToNextMedia:true,
+                    mediaEndAction:"loop",
+                    sck:"r4wruADPCq7iqJomagvYpdehvILa2bgE",
+                    gdk:"AIzaSyB0Rw9B0WgjWQUYoxRi_rwpwr5E0ZxXuXs",
+                    useKeyboardNavigationForPlayback:true,
+                    usePlaylistScroll:true,
+                    playlistScrollOrientation:"vertical",
+                    playlistScrollTheme:"light",
+                    fbk:"644413448983338",
+                    useNumbersInPlaylist: true,
+                    numberTitleSeparator: ".  ",
+                    artistTitleSeparator: " - ",
+                    playlistItemContent:"title",
+                    wavesurfer:{
+                        waveColor: '#A8DBA8',
+                        progressColor: '#ff33ff',   
+                        barWidth: 5,
+                        barRadius: 3,
+                        cursorColor: '#0000ff',
+                        cursorWidth: 3,
+                        height: 200,
+                        barGap: 5,
+                    },
+                    iconLink:'<i class="fa fa-cart-plus"></i>',
+
+                };
+
+                awp_player = $("#awp-wrapper").awp(settings);
+
+            }); 
+
+        </script>
+        
+	</head>
+	<body>
+
+        <!-- player code -->   
+        <div id="awp-wrapper">
+
+            <div class="awp-player-wrap">
+
+                <div class="awp-player-thumb-wrapper">
+    			
+        			<div class="awp-player-thumb"></div>
+
+                    <div class="awp-playback-controls">
+
+                        <div class="awp-skip-backward awp-contr-btn" data-tooltip="Skip backward"><i class="fa fa-backward"></i></div>
+            			
+            			<div class="awp-playback-toggle awp-contr-btn">
+                            <div class="awp-btn awp-btn-play">
+                                <i class="fa fa-play"></i>
+                            </div>
+                            <div class="awp-btn awp-btn-pause">
+                                <i class="fa fa-pause"></i>
+                            </div>
+                        </div>
+
+                        <div class="awp-skip-forward awp-contr-btn" data-tooltip="Skip forward"><i class="fa fa-forward"></i></div>
+
+                    </div>
+
+                    <div class="awp-volume-wrapper">
+                        <div class="awp-player-volume awp-contr-btn">
+                            <div class="awp-btn awp-btn-volume-up">
+                                <i class="fa fa-volume-up"></i>
+                            </div>
+                            <div class="awp-btn awp-btn-volume-down">
+                                <i class="fa fa-volume-down"></i>
+                            </div>
+                            <div class="awp-btn awp-btn-volume-off">
+                                <i class="fa fa-volume-off"></i>
+                            </div>
+                        </div>
+                        <div class="awp-volume-seekbar">
+                             <div class="awp-volume-bg"><div class="awp-volume-level"></div></div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="awp-player-holder">
+
+                    <div class="awp-waveform-wrap">
+                        <div class="awp-waveform awp-hidden"></div>  
+                        <div class="awp-waveform-img awp-hidden"><!-- image waveform backup -->
+                            <div class="awp-waveform-img-load"></div>
+                            <div class="awp-waveform-img-progress-wrap"><div class="awp-waveform-img-progress"></div></div>
+                        </div>
+                        <span class="awp-waveform-preloader"></span>
+                    </div>  
+
+                    <div class="awp-media-time-total awp-hidden">0:00</div>
+                    <div class="awp-media-time-current awp-hidden">0:00</div>
+
+                </div>
+
+            </div>
+              
+            <div class="awp-playlist-holder">
+                <div class="awp-playlist-filter-msg"><p>NOTHING FOUND!</p></div>
+                <div class="awp-playlist-inner">
+                    <div class="awp-playlist-content">
+                        <!-- playlist items are appended here! --> 
+                    </div>
+                </div>
+                
+                <div class="awp-preloader"></div>
+
+                <div class="awp-bottom-bar">
+
+                    <input class="awp-search-filter" type="text" placeholder="filter...">
+
+                    <div class="awp-sort-alpha awp-contr-btn" data-tooltip="Alphabetic sort">
+                        <div class="awp-btn awp-sort-alpha-desc">
+                            <i class="fa fa-sort-alpha-desc"></i>
+                        </div>
+                        <div class="awp-btn awp-sort-alpha-asc">
+                            <i class="fa fa-sort-alpha-asc"></i>
+                        </div>
+                    </div>
+
+                    <div class="awp-bottom-controls">
+
+                        <div class="awp-playback-rate-toggle awp-contr-btn" data-tooltip="Speed">
+                            <i class="fa fa-asterisk"></i>
+                        </div>
+
+                        <div class="awp-share-toggle awp-contr-btn" data-tooltip="Share">
+                            <i class="fa fa-share-square-o"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="awp-share-holder">
+                
+                <div class="awp-info-data">
+                    <div class="awp-player-title"></div>
+                    <div class="awp-player-desc"></div>
+                </div>
+               
+                <div class="awp-share-holder-inner">
+
+                    <div class="awp-share-item awp-contr-btn" data-type="tumblr" data-tooltip="Share on Tumblr"><i class="fa fa-tumblr"></i></div>
+                    <div class="awp-share-item awp-contr-btn" data-type="twitter" data-tooltip="Share on Twitter"><i class="fa fa-twitter"></i></div>
+                    <div class="awp-share-item awp-contr-btn" data-type="facebook" data-tooltip="Share on Facebook"><i class="fa fa-facebook"></i></div> 
+                    <div class="awp-share-item awp-contr-btn" data-type="whatsapp" data-tooltip="Share on WhatsApp"><i class="fa fa-whatsapp"></i></div>
+
+                </div>
+
+                <div class="awp-share-close awp-contr-btn" data-tooltip="Close"><i class="fa fa-close"></i></div>
+
+            </div>
+
+            <div class="awp-playback-rate-holder">
+
+                <div class="awp-playback-rate-wrap">
+                    <div class="awp-playback-rate-min"></div>
+                    <div class="awp-playback-rate-seekbar">
+                         <div class="awp-playback-rate-bg">
+                            <div class="awp-playback-rate-level"><!--<div class="awp-playback-rate-drag"></div>--></div>
+                         </div>
+                    </div>
+                    <div class="awp-playback-rate-max"></div>
+                </div>
+
+                <div class="awp-playback-rate-close awp-contr-btn" data-tooltip="Close">
+                    <i class="fa fa-times"></i>
+                </div>
+                
+            </div>
+
+            <div class="awp-tooltip"></div>
+        
+        </div>  
+
+
+
+        <!-- PLAYLIST LIST -->
+        <div id="awp-playlist-list">
+
+             <!-- audio playlist -->
+             <div id="playlist-audio1">
+
+                <div class="awp-playlist-item" data-type="audio" data-mp3="media/audio/1/Tim_McMorris_-_Successful_Business_Venture.mp3" data-title="Successful Business Venture" data-artist="Tim McMorris" data-thumb="media/audio/1/Tim_McMorris_-_Successful_Business_Venture.jpg" data-playlist-icons='[{"title": "Spotify", "url": "https://spotify.com", "target":"_blank", "icon": "f1bc"}, {"title": "Youtube", "url": "https://youtube.com", "target":"_blank", "icon": "f167"}, {"title": "Apple Music", "url": "https://apple.com", "target":"_blank", "icon": "f179"}, {"title": "Soundcloud", "url": "https://soundcloud.com", "target":"_blank", "icon": "f1be"}, {"title": "Amazon", "url": "https://amazon.com", "target":"_blank", "icon": "f270"}]' data-description="This is optional song description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in neque. Vivamus tellus. Donec magna. Donec consequat hendrerit magna. " ></div> 
+
+                <div class="awp-playlist-item" data-type="audio" data-mp3="media/audio/1/Tim_McMorris_-_Happy_Days_Are_Here_To_Stay.mp3" data-artist="Tim McMorris" data-title="Happy Days Are Here To Stay" data-thumb="media/audio/1/Tim_McMorris_-_Happy_Days_Are_Here_To_Stay.jpg"  data-download="media/audio/1/Tim_McMorris_-_Happy_Days_Are_Here_To_Stay.mp3"></div>
+           
+                <div class="awp-playlist-item" data-type="audio" data-mp3="media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3" data-artist="Tim McMorris" data-title="A Bright And Hopeful Future" data-thumb="media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.jpg"  data-download="media/audio/1/Tim_McMorris_-_A_Bright_And_Hopeful_Future.mp3" data-link="http://codecanyon.net/user/Tean/portfolio"></div>
+                 
+                <div class="awp-playlist-item" data-type="audio" data-mp3="media/audio/1/Tim_McMorris_-_Give_Our_Dreams_Their_Wings_To_Fly.mp3" data-artist="Tim McMorris" data-title="Give Our Dreams Their Wings To Fly" data-thumb="media/audio/1/Tim_McMorris_-_Give_Our_Dreams_Their_Wings_To_Fly.jpg"  data-download="media/audio/1/Tim_McMorris_-_Give_Our_Dreams_Their_Wings_To_Fly.mp3"></div>
+
+                <div class="awp-playlist-item" data-type="audio" data-mp3="media/audio/1/Tim_McMorris_-_Marketing_Advertising_Music.mp3" data-artist="Tim McMorris" data-title="Marketing Advertising Music" data-thumb="media/audio/1/Tim_McMorris_-_Marketing_Advertising_Music.jpg"  data-download="media/audio/1/Tim_McMorris_-_Marketing_Advertising_Music.mp3"></div>
+
+                <div class="awp-playlist-item" data-type="audio" data-mp3="media/audio/1/Tim_McMorris_-_Health_Happiness_Success.mp3" data-artist="Tim McMorris" data-title="Health Happiness Success" data-thumb="media/audio/1/Tim_McMorris_-_Health_Happiness_Success.jpg"  data-download="media/audio/1/Tim_McMorris_-_Health_Happiness_Success.mp3"></div> 
+
+                <div class="awp-playlist-item" data-type="audio" data-mp3="media/audio/1/Tim_McMorris_-_Be_My_Valentine.mp3" data-artist="Tim McMorris" data-title="Be My Valentine" data-thumb="media/audio/1/Tim_McMorris_-_Be_My_Valentine.jpg" data-download="media/audio/1/Tim_McMorris_-_Be_My_Valentine.mp3"></div> 
+
+             </div>
+
+        </div>    
+
+
+ 
+		
+	</body>
+</html>
